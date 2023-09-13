@@ -1,0 +1,32 @@
+body {
+    background-color: rgb(18, 147, 147, 0.3);
+}
+
+.book-container {
+    display: flex;
+    justify-content: center;
+}
+
+[data-book] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem;
+    border-width: 2rem;
+    border-color: black;
+    width: 13rem;
+    height: 15rem;
+    background-color: white;
+    border-radius: 2rem;
+    flex-direction: column;
+}
+
+[data-author] {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+}
+
+[data-title] {
+    font-size: 1rem;
+    color: red;
+}
