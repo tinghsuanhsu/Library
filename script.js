@@ -2,10 +2,10 @@
 // features list
 // -------------------
 // take users input
-// store new book objects into an array
+// store new book objects into an array [kinda]
 // display book  [x]
 // add 1 book to existing library [x]
-// remove book 
+// remove book [x]
 // change book status
 
 
@@ -36,7 +36,7 @@ function createElementAndSetAttribute(element, attribute, value){
   return container
 }
 
-function createBook(book, bookId) {
+function createBookElement(book, bookId) {
 
   // book container
   bookSpan = createElementAndSetAttribute('div', 'data-book', bookId);
@@ -76,12 +76,6 @@ function removeBookFromLibrary(bookId) {
   library.removeChild(toBeRemoved)
 
 }
-// function displayBookinLibrary(bookSpan) {
-  
-//   library.append(bookSpan);
-
-// }
-
 
 // user "creating" books
 const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
@@ -90,41 +84,40 @@ const book3 = new Book('Apple', 'Nice Food', '10', 'Not Read', '3');
 const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
 
 
-let bookElement = createBook(book1, 1);
-addBookToLibrary(bookElement);
+let newBookElement = createBookElement(book1, 1);
+addBookToLibrary(newBookElement);
 
 
-bookElement = createBook(book2, 2);
-addBookToLibrary(bookElement);
+newBookElement = createBookElement(book2, 2);
+addBookToLibrary(newBookElement);
 
 
+function createBookObjFromInput() {
+  const title = document.getElementById('bookTitle').value;
+  const author = document.getElementById('bookAuthor').value;
+  const pageNumber = document.getElementById('bookPage').value;
+  const readStatus = document.getElementById('bookReadStatus').value;
+  const price = document.getElementById('bookPrice').value;
+
+  // console.log(title, author, pageNumber, readStatus, price)
+  const book = new Book(title, author, pageNumber, readStatus, price);
+  return book
+}
 
 
-// testing adding books
-// addBookToLibrary([book1, book2, book3])
-// console.log(bookDisplay)
-// addBookToLibrary([book4])
-// console.log(myLibrary)
+// const removeButtons = document.querySelectorAll('[data-remove]');
+// [...removeButtons].forEach(button => {
+//   button.addEventListener('click', (e) => {
+//     removeBookFromLibrary(e.target.dataset.remove) // data-book id
+//   });
+// })
 
-// displayBookinLibrary(myLibrary)
-// testing displaying books
-// for (let i =0; i < myLibrary.length ; i++) {
-//   createBook(myLibrary[i], bookId)
-//   bookId++
-// }
+let newBook;
 
-
-const removeButtons = document.querySelectorAll('[data-remove]');
-[...removeButtons].forEach(button => {
-  button.addEventListener('click', (e) => {
-    removeBookFromLibrary(e.target.dataset.remove)
-  });
+const subButton = document.querySelector('#submit')
+subButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  newBook = createBookObjFromInput();
+  newBookElement = createBookElement(newBook, 3);
+  addBookToLibrary(newBookElement);
 })
-
-// myLibrary.pop()
-
-// for (let i =0; i < myLibrary.length ; i++) {
-//   displayBookinLibrary(myLibrary[i], bookId)
-//   bookId++
-
-// }
