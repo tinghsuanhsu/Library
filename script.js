@@ -12,7 +12,7 @@
 
 let myLibrary = [];
 let bookId = 0;
-const bookDisplay = document.querySelector('.book-container');
+const library = document.querySelector('.book-container');
 
 
 class Book {
@@ -25,13 +25,6 @@ class Book {
   }
 }
 
-function addBookToLibrary(book) {
-  myLibrary = [...myLibrary, ...book]
-}
-
-function removeBookFromLibrary(book) {
-
-}
 
 function setText(element, obj, property) {
   element.innerText = obj[property]
@@ -40,12 +33,11 @@ function setText(element, obj, property) {
 function createElementAndSetAttribute(element, attribute, value){
   container = document.createElement(element);
   container.setAttribute(attribute, value);
-  // setText(container, obj, property)
   return container
 }
 
-function displayBookinLibrary(book, bookId) {
-  
+function createBook(book, bookId) {
+
   // book container
   bookSpan = createElementAndSetAttribute('div', 'data-book', bookId);
 
@@ -66,15 +58,29 @@ function displayBookinLibrary(book, bookId) {
   setText(bookPrice, book, 'price');
 
   // remove button
-  removeBookButton = createElementAndSetAttribute('button', 'data-remove', '');
-  removeBookButton.innerText = 'Remove';
+  removeBook = createElementAndSetAttribute('button', 'data-remove', bookId);
+  removeBook.innerText = 'Remove';
 
   // add attributes to the book container
-  bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookPrice, removeBookButton)
+  bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookPrice, removeBook)
+  return bookSpan
+}
 
-  bookDisplay.append(bookSpan);
+function addBookToLibrary(book) {
+  library.append(book)
+}
+
+
+function removeBookFromLibrary(bookId) {
+  let toBeRemoved = document.querySelector(`[data-book="${bookId}"]`)
+  library.removeChild(toBeRemoved)
 
 }
+// function displayBookinLibrary(bookSpan) {
+  
+//   library.append(bookSpan);
+
+// }
 
 
 // user "creating" books
@@ -83,97 +89,42 @@ const book2 = new Book('JK Rolling', 'Happy Potter', '234', 'Read', '25');
 const book3 = new Book('Apple', 'Nice Food', '10', 'Not Read', '3');
 const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
 
+
+let bookElement = createBook(book1, 1);
+addBookToLibrary(bookElement);
+
+
+bookElement = createBook(book2, 2);
+addBookToLibrary(bookElement);
+
+
+
+
 // testing adding books
-console.log(myLibrary)
-addBookToLibrary([book1, book2, book3])
-console.log(myLibrary)
-addBookToLibrary([book4])
-console.log(myLibrary)
+// addBookToLibrary([book1, book2, book3])
+// console.log(bookDisplay)
+// addBookToLibrary([book4])
+// console.log(myLibrary)
 
+// displayBookinLibrary(myLibrary)
 // testing displaying books
-for (let i =0; i < myLibrary.length ; i++) {
-  displayBookinLibrary(myLibrary[i], bookId)
-  bookId++
-
-}
-
-
-
-// features
-// take users input
-// store new book objects into an array
-// display book
-// let users add a book
-// remove book 
-// change book status
-
-
-
-
-
-// let myLibrary = [];
-// const bookDisplay = document.querySelector('.book-container');
-
-// class Book {
-//   constructor(author, title, numOfPage, readStatus, price) {
-//     this.author = author;
-//     this.title = title;
-//     this.numOfPage = numOfPage;
-//     this.readStatus = readStatus;
-//     this.price = price;
-
-//   }
+// for (let i =0; i < myLibrary.length ; i++) {
+//   createBook(myLibrary[i], bookId)
+//   bookId++
 // }
 
-// function addBookToLibrary(book) {
-//   myLibrary = [...myLibrary, ...book]
+
+const removeButtons = document.querySelectorAll('[data-remove]');
+[...removeButtons].forEach(button => {
+  button.addEventListener('click', (e) => {
+    removeBookFromLibrary(e.target.dataset.remove)
+  });
+})
+
+// myLibrary.pop()
+
+// for (let i =0; i < myLibrary.length ; i++) {
+//   displayBookinLibrary(myLibrary[i], bookId)
+//   bookId++
+
 // }
-
-// function createElementAndSetAttribute(element, attribute, value){
-//   container = document.createElement(element);
-//   container.setAttribute(attribute, value);
-//   return container
-// }
-
-// function displayBookinLibrary(myLibrary) {
-  
-//   bookSpan = document.createElement('div');
-//   bookSpan.setAttribute('data-book','');
-
-//   // bookTitle = document.createElement('p');
-//   // bookTitle.innerText = myLibrary.title
-//   bookTitle = createElementAndSetAttribute('p', 'data-book', '')
- 
-//   bookAuthor = document.createElement('p');
-//   bookAuthor.setAttribute('data-author','')
-//   bookAuthor.innerText = myLibrary.author
-
-//   bookPage = document.createElement('p');
-//   bookPage.innerText = myLibrary.numOfPage
-  
-//   bookReadStatus = document.createElement('p');
-//   bookReadStatus.innerText = myLibrary.readStatus
-
-//   bookPrice = document.createElement('p');
-//   bookPrice.innerText = myLibrary.price
-
-//   bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookPrice)
-
-//   // console.log(bookDisplay)
-//   bookDisplay.append(bookSpan);
-//   // myLibrary.title =
-//   // bookDisplay.innerText = book.title
-//   //   myLibrary.forEach(book => {
-//   //       console.log(book)
-//   //       bookDisplay.innerText = book.title
-//   //   });
-// }
-
-// const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
-// const book2 = new Book('JK Rolling', 'Happy Potter', '234', 'Read', '25');
-// const books = [book1, book2]
-// addBookToLibrary(books)
-// // console.dir(bookDisplay)
-// // addBookToLibrary(book2)
-
-// displayBookinLibrary(myLibrary[0])
