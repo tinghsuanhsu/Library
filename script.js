@@ -1,7 +1,7 @@
 
 // features list
 // -------------------
-// take users input
+// take users input [x]
 // store new book objects into an array [kinda]
 // display book  [x]
 // add 1 book to existing library [x]
@@ -60,9 +60,11 @@ function createBookElement(book, bookId) {
   // remove button
   removeBook = createElementAndSetAttribute('button', 'data-remove', bookId);
   removeBook.innerText = 'Remove';
+  removeBook.classList.add('remove');
 
   // add attributes to the book container
   bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookPrice, removeBook)
+  
   return bookSpan
 }
 
@@ -99,18 +101,11 @@ function createBookObjFromInput() {
   const readStatus = document.getElementById('bookReadStatus').value;
   const price = document.getElementById('bookPrice').value;
 
-  // console.log(title, author, pageNumber, readStatus, price)
   const book = new Book(title, author, pageNumber, readStatus, price);
   return book
 }
 
 
-// const removeButtons = document.querySelectorAll('[data-remove]');
-// [...removeButtons].forEach(button => {
-//   button.addEventListener('click', (e) => {
-//     removeBookFromLibrary(e.target.dataset.remove) // data-book id
-//   });
-// })
 
 let newBook;
 
@@ -120,4 +115,23 @@ subButton.addEventListener('click', (e) => {
   newBook = createBookObjFromInput();
   newBookElement = createBookElement(newBook, 3);
   addBookToLibrary(newBookElement);
+  removeButtons = document.getElementsByClassName('remove');
 })
+
+
+// let removeButtons = document.getElementsByClassName('remove');
+// // console.log([...removeButtons]);
+// [...removeButtons].forEach(button => {
+//   button.addEventListener('DOMContentLoaded', (e) => {
+//     console.log(e)
+//     removeBookFromLibrary(e.target.dataset.remove) // data-book id
+//   });
+// })
+
+library.addEventListener('click', function(e) {
+  const target = e.target.closest('.remove');
+  if (target.className === 'remove') {
+      removeBookFromLibrary(target.dataset.remove) // data-book id
+  }
+  }
+) 
