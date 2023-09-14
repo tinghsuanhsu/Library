@@ -2,7 +2,9 @@
 // features list
 // -------------------
 // take users input [x]
-// store new book objects into an array [kinda]
+//    validate data type
+//    update read status 
+// store new book objects into an array [x]
 // display book  [x]
 // add 1 book to existing library [x]
 // remove book [x]
@@ -36,7 +38,7 @@ function createElementAndSetAttribute(element, attribute, value){
   return container
 }
 
-function createBookElement(book, bookId) {
+function createBookElement(book) {
 
   // book container
   bookSpan = createElementAndSetAttribute('div', 'data-book', bookId);
@@ -65,6 +67,8 @@ function createBookElement(book, bookId) {
   // add attributes to the book container
   bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookPrice, removeBook)
   
+  bookId++ // incremental bookID
+  console.log(bookId)
   return bookSpan
 }
 
@@ -74,24 +78,9 @@ function addBookToLibrary(book) {
 
 
 function removeBookFromLibrary(bookId) {
-  let toBeRemoved = document.querySelector(`[data-book="${bookId}"]`)
-  library.removeChild(toBeRemoved)
-
+  let toBeRemoved = document.querySelector(`[data-book="${bookId}"]`);
+  library.removeChild(toBeRemoved);
 }
-
-// user "creating" books
-const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
-const book2 = new Book('JK Rolling', 'Happy Potter', '234', 'Read', '25');
-const book3 = new Book('Apple', 'Nice Food', '10', 'Not Read', '3');
-const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
-
-
-let newBookElement = createBookElement(book1, 1);
-addBookToLibrary(newBookElement);
-
-
-newBookElement = createBookElement(book2, 2);
-addBookToLibrary(newBookElement);
 
 
 function createBookObjFromInput() {
@@ -107,31 +96,37 @@ function createBookObjFromInput() {
 
 
 
-let newBook;
+// user "creating" books
+const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
+const book2 = new Book('JK Rolling', 'Happy Potter', '234', 'Read', '25');
+const book3 = new Book('Apple', 'Nice Food', '10', 'Not Read', '3');
+const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
 
+
+// let newBookElement = createBookElement(book1, 1);
+// addBookToLibrary(newBookElement);
+
+
+// newBookElement = createBookElement(book2, 2);
+// addBookToLibrary(newBookElement);
+
+
+// add new book
 const subButton = document.querySelector('#submit')
 subButton.addEventListener('click', (e) => {
   e.preventDefault();
-  newBook = createBookObjFromInput();
-  newBookElement = createBookElement(newBook, 3);
+  let newBook = createBookObjFromInput();
+  newBookElement = createBookElement(newBook, bookId);
   addBookToLibrary(newBookElement);
   removeButtons = document.getElementsByClassName('remove');
 })
 
-
-// let removeButtons = document.getElementsByClassName('remove');
-// // console.log([...removeButtons]);
-// [...removeButtons].forEach(button => {
-//   button.addEventListener('DOMContentLoaded', (e) => {
-//     console.log(e)
-//     removeBookFromLibrary(e.target.dataset.remove) // data-book id
-//   });
-// })
-
+// remove the book
 library.addEventListener('click', function(e) {
-  const target = e.target.closest('.remove');
-  if (target.className === 'remove') {
-      removeBookFromLibrary(target.dataset.remove) // data-book id
+  if (e.target.matches('button')) {
+      removeBookFromLibrary(e.target.dataset.remove); // data-book id
+    } else {
+    return ;
   }
-  }
+}
 ) 
