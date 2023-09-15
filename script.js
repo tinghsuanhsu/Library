@@ -14,6 +14,8 @@
 
 let myLibrary = [];
 let bookId = 0;
+let isChecked = false;
+
 const library = document.querySelector('.book-container');
 
 
@@ -27,13 +29,26 @@ class Book {
   }
 }
 
+function createReadStatusToggle() {
+  let toggleLabel = document.createElement('label');
+  toggleLabel.setAttribute('class', 'switch');
+
+  let toggleInput = document.createElement('input');
+  toggleInput.setAttribute('type', 'checkbox')
+
+  // let toggleSpan = document.createElement('span');
+  // toggleSpan.setAttribute('class', 'slider round');
+  
+  toggleLabel.append(toggleInput);
+  return toggleLabel
+}
 
 function setText(element, obj, property) {
   element.innerText = obj[property]
 }
 
 function createElementAndSetAttribute(element, attribute, value){
-  container = document.createElement(element);
+  let container = document.createElement(element);
   container.setAttribute(attribute, value);
   return container
 }
@@ -41,22 +56,19 @@ function createElementAndSetAttribute(element, attribute, value){
 function createBookElement(book) {
 
   // book container
-  bookSpan = createElementAndSetAttribute('div', 'data-book', bookId);
+  const bookSpan = createElementAndSetAttribute('div', 'data-book', bookId);
+  const bookTitle = createElementAndSetAttribute('p', 'data-title', '');
+  const bookAuthor = createElementAndSetAttribute('p', 'data-author', '');
+  const bookPage = createElementAndSetAttribute('p', 'data-page', '');
+  const bookReadStatus = createElementAndSetAttribute('p', 'data-read-status', book.readStatus);
+  const bookStatusToggle = createReadStatusToggle();
+  const bookPrice = createElementAndSetAttribute('p', 'data-price', '');
 
-  // book attributes
-  bookTitle = createElementAndSetAttribute('p', 'data-title', '');
-  setText(bookTitle, book, 'title');
-  
-  bookAuthor = createElementAndSetAttribute('p', 'data-author', '');
+
   setText(bookAuthor, book, 'author');
-  
-  bookPage = createElementAndSetAttribute('p', 'data-page', '');
   setText(bookPage, book, 'numOfPage');
-
-  bookReadStatus = createElementAndSetAttribute('p', 'data-read-status', '');
   setText(bookReadStatus, book, 'readStatus');
-
-  bookPrice = createElementAndSetAttribute('p', 'data-price', '');
+  setText(bookTitle, book, 'title');
   setText(bookPrice, book, 'price');
 
   // remove button
@@ -65,7 +77,7 @@ function createBookElement(book) {
   removeBook.classList.add('remove');
 
   // add attributes to the book container
-  bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookPrice, removeBook)
+  bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookStatusToggle, bookPrice, removeBook)
   
   bookId++ // incremental bookID
   console.log(bookId)
@@ -87,7 +99,7 @@ function createBookObjFromInput() {
   const title = document.getElementById('bookTitle').value;
   const author = document.getElementById('bookAuthor').value;
   const pageNumber = document.getElementById('bookPage').value;
-  const readStatus = document.getElementById('bookReadStatus').value;
+  const readStatus = document.getElementById('bookReadStatus').checked == true ? 'Read': 'Not Read';
   const price = document.getElementById('bookPrice').value;
 
   const book = new Book(title, author, pageNumber, readStatus, price);
@@ -103,8 +115,8 @@ const book3 = new Book('Apple', 'Nice Food', '10', 'Not Read', '3');
 const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
 
 
-// let newBookElement = createBookElement(book1, 1);
-// addBookToLibrary(newBookElement);
+let newBookElement = createBookElement(book1, 1);
+addBookToLibrary(newBookElement);
 
 
 // newBookElement = createBookElement(book2, 2);
