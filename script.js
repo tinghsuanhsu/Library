@@ -104,7 +104,7 @@ function removeBookFromLibrary(bookId) {
   library.removeChild(toBeRemoved);
 }
 
-function updateReadStatus(element, checked) {
+function updateReadStatus(checked) {
   return checked == true ? 'Read' : 'Not Read'
   // const currentStatus = document.querySelector('[data-read-status]');
   // currentStatus.innerText = checked == true ? 'Read' : 'Not Read';
@@ -142,10 +142,11 @@ library.addEventListener('click', function(e) {
 
 library.addEventListener('change', function(e) {
   if (e.target.matches('.status')) {
-    let pTag = e.target.parentElement.previousElementSibling
-    let check = e.target.checked 
-    pTag.innerText = updateReadStatus(check); 
-    pTag.dataset.readStatus = updateReadStatus(check)
+      let pTag = e.target.parentElement.previousElementSibling
+      let check = e.target.checked 
+      pTag.innerText = updateReadStatus(check); 
+      pTag.dataset.readStatus = updateReadStatus(check);
+      console.log(pTag)
     } else {
     return ;
   }
