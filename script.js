@@ -29,18 +29,15 @@ class Book {
   }
 }
 
-function createReadStatusToggle() {
-  let toggleLabel = document.createElement('label');
-  toggleLabel.setAttribute('class', 'switch');
 
-  let toggleInput = document.createElement('input');
-  toggleInput.setAttribute('type', 'checkbox')
-
-  // let toggleSpan = document.createElement('span');
-  // toggleSpan.setAttribute('class', 'slider round');
-  
-  toggleLabel.append(toggleInput);
-  return toggleLabel
+function createBookObjFromInput() {
+  const title = document.getElementById('bookTitle').value;
+  const author = document.getElementById('bookAuthor').value;
+  const pageNumber = document.getElementById('bookPage').value;
+  const readStatus = document.getElementById('bookReadStatus').checked == true ? 'Read': 'Not Read';
+  const price = document.getElementById('bookPrice').value;
+  const book = new Book(title, author, pageNumber, readStatus, price);
+  return book
 }
 
 function setText(element, obj, property) {
@@ -63,7 +60,7 @@ function createBookElement(book) {
   const bookReadStatus = createElementAndSetAttribute('p', 'data-read-status', book.readStatus);
   const bookStatusToggle = createReadStatusToggle();
   const bookPrice = createElementAndSetAttribute('p', 'data-price', '');
-
+  const removeBook = createElementAndSetAttribute('button', 'data-remove', bookId);
 
   setText(bookAuthor, book, 'author');
   setText(bookPage, book, 'numOfPage');
@@ -72,7 +69,6 @@ function createBookElement(book) {
   setText(bookPrice, book, 'price');
 
   // remove button
-  removeBook = createElementAndSetAttribute('button', 'data-remove', bookId);
   removeBook.innerText = 'Remove';
   removeBook.classList.add('remove');
 
@@ -80,33 +76,40 @@ function createBookElement(book) {
   bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookStatusToggle, bookPrice, removeBook)
   
   bookId++ // incremental bookID
-  console.log(bookId)
   return bookSpan
 }
 
-function addBookToLibrary(book) {
-  library.append(book)
+function createReadStatusToggle() {
+  let toggleLabel = document.createElement('label');
+  toggleLabel.setAttribute('class', 'switch');
+
+  let toggleInput = document.createElement('input');
+  toggleInput.setAttribute('type', 'checkbox');
+  toggleInput.setAttribute('class', 'status');
+
+
+  // let toggleSpan = document.createElement('span');
+  // toggleSpan.setAttribute('class', 'slider round');
+  
+  toggleLabel.append(toggleInput);
+  return toggleLabel
 }
 
+function addBookToLibrary(book) {
+  library.append(book);
+}
 
 function removeBookFromLibrary(bookId) {
-  let toBeRemoved = document.querySelector(`[data-book="${bookId}"]`);
+  const toBeRemoved = document.querySelector(`[data-book="${bookId}"]`);
   library.removeChild(toBeRemoved);
 }
 
-
-function createBookObjFromInput() {
-  const title = document.getElementById('bookTitle').value;
-  const author = document.getElementById('bookAuthor').value;
-  const pageNumber = document.getElementById('bookPage').value;
-  const readStatus = document.getElementById('bookReadStatus').checked == true ? 'Read': 'Not Read';
-  const price = document.getElementById('bookPrice').value;
-
-  const book = new Book(title, author, pageNumber, readStatus, price);
-  return book
+function updateReadStatus(element, checked) {
+  return checked == true ? 'Read' : 'Not Read'
+  // const currentStatus = document.querySelector('[data-read-status]');
+  // currentStatus.innerText = checked == true ? 'Read' : 'Not Read';
+  // currentStatus.setAttribute('data-read-status', checked == true ? 'Read': 'Not Read');
 }
-
-
 
 // user "creating" books
 const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
@@ -118,11 +121,6 @@ const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
 let newBookElement = createBookElement(book1, 1);
 addBookToLibrary(newBookElement);
 
-
-// newBookElement = createBookElement(book2, 2);
-// addBookToLibrary(newBookElement);
-
-
 // add new book
 const subButton = document.querySelector('#submit')
 subButton.addEventListener('click', (e) => {
@@ -131,7 +129,7 @@ subButton.addEventListener('click', (e) => {
   newBookElement = createBookElement(newBook, bookId);
   addBookToLibrary(newBookElement);
   removeButtons = document.getElementsByClassName('remove');
-})
+});
 
 // remove the book
 library.addEventListener('click', function(e) {
@@ -140,5 +138,15 @@ library.addEventListener('click', function(e) {
     } else {
     return ;
   }
-}
-) 
+});
+
+library.addEventListener('change', function(e) {
+  if (e.target.matches('.status')) {
+    let pTag = e.target.parentElement.previousElementSibling
+    let check = e.target.checked 
+    pTag.innerText = updateReadStatus(check); 
+    pTag.dataset.readStatus = updateReadStatus(check)
+    } else {
+    return ;
+  }
+}); 
