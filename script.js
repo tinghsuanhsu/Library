@@ -12,7 +12,7 @@
 
 
 
-let myLibrary = [];
+let libraryArray = [];
 let bookId = 0;
 let isChecked = false;
 
@@ -52,7 +52,6 @@ function createElementAndSetAttribute(element, attribute, value){
 
 function createBookElement(book) {
 
-  // book container
   const bookSpan = createElementAndSetAttribute('div', 'data-book', bookId);
   const bookTitle = createElementAndSetAttribute('p', 'data-title', '');
   const bookAuthor = createElementAndSetAttribute('p', 'data-author', '');
@@ -96,7 +95,8 @@ function createReadStatusToggle() {
 }
 
 function addBookToLibrary(book) {
-  library.append(book);
+  library.append(book); // add to DOM
+  libraryArray.push(book.getAttribute('data-book')); // add to array
 }
 
 function removeBookFromLibrary(bookId) {
@@ -112,14 +112,14 @@ function updateReadStatus(checked) {
 }
 
 // user "creating" books
-const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
-const book2 = new Book('JK Rolling', 'Happy Potter', '234', 'Read', '25');
-const book3 = new Book('Apple', 'Nice Food', '10', 'Not Read', '3');
-const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
+// const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
+// const book2 = new Book('JK Rolling', 'Happy Potter', '234', 'Read', '25');
+// const book3 = new Book('Apple', 'Nice Food', '10', 'Not Read', '3');
+// const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
 
 
-let newBookElement = createBookElement(book1, 1);
-addBookToLibrary(newBookElement);
+// let newBookElement = createBookElement(book1, 1);
+// addBookToLibrary(newBookElement);
 
 // add new book
 const subButton = document.querySelector('#submit')
@@ -134,7 +134,11 @@ subButton.addEventListener('click', (e) => {
 // remove the book
 library.addEventListener('click', function(e) {
   if (e.target.matches('button')) {
-      removeBookFromLibrary(e.target.dataset.remove); // data-book id
+    let bookToRemove = e.target.dataset.remove
+      removeBookFromLibrary(bookToRemove); // data-book id
+      console.log(bookToRemove)
+      libraryArray = libraryArray.filter(book => book != bookToRemove);
+      console.log(libraryArray)
     } else {
     return ;
   }
@@ -146,7 +150,6 @@ library.addEventListener('change', function(e) {
       let check = e.target.checked 
       pTag.innerText = updateReadStatus(check); 
       pTag.dataset.readStatus = updateReadStatus(check);
-      console.log(pTag)
     } else {
     return ;
   }
