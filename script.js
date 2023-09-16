@@ -17,7 +17,8 @@ let bookId = 0;
 let isChecked = false;
 
 const library = document.querySelector('.book-container');
-
+const numOfBook = document.querySelector('[data-num-of-book]');
+const numOfBookRead = document.querySelector('[data-num-of-book-read]');
 
 class Book {
   constructor(author, title, numOfPage, readStatus, price) {
@@ -111,13 +112,12 @@ function updateReadStatus(checked) {
   // currentStatus.setAttribute('data-read-status', checked == true ? 'Read': 'Not Read');
 }
 
+function countBookRead() {
+  const bookRead = document.querySelectorAll('[data-read-status="Read"');
+  return bookRead.length;
+}
 // user "creating" books
 // const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
-// const book2 = new Book('JK Rolling', 'Happy Potter', '234', 'Read', '25');
-// const book3 = new Book('Apple', 'Nice Food', '10', 'Not Read', '3');
-// const book4 = new Book('Looper', 'Eating food', '50', 'Read', '12.3');
-
-
 // let newBookElement = createBookElement(book1, 1);
 // addBookToLibrary(newBookElement);
 
@@ -128,17 +128,16 @@ subButton.addEventListener('click', (e) => {
   let newBook = createBookObjFromInput();
   newBookElement = createBookElement(newBook, bookId);
   addBookToLibrary(newBookElement);
-  removeButtons = document.getElementsByClassName('remove');
+  numOfBook.innerHTML = libraryArray.length;
+  numOfBookRead.innerText = countBookRead();
 });
 
 // remove the book
 library.addEventListener('click', function(e) {
   if (e.target.matches('button')) {
-    let bookToRemove = e.target.dataset.remove
+    let bookToRemove = e.target.dataset.remove;
       removeBookFromLibrary(bookToRemove); // data-book id
-      console.log(bookToRemove)
       libraryArray = libraryArray.filter(book => book != bookToRemove);
-      console.log(libraryArray)
     } else {
     return ;
   }
@@ -146,10 +145,12 @@ library.addEventListener('click', function(e) {
 
 library.addEventListener('change', function(e) {
   if (e.target.matches('.status')) {
-      let pTag = e.target.parentElement.previousElementSibling
-      let check = e.target.checked 
+      let pTag = e.target.parentElement.previousElementSibling;
+      let check = e.target.checked;
       pTag.innerText = updateReadStatus(check); 
       pTag.dataset.readStatus = updateReadStatus(check);
+      numOfBookRead.innerText = countBookRead();
+
     } else {
     return ;
   }
