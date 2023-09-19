@@ -9,17 +9,52 @@
 </head>
 <body>
     <div class="container">
-        <div class="user-input-container">
-            <form>
-                <label for="bookTitle">Book Title:</label><br>
-                <input type="text" name="bookTitle" id="bookTitle"><br>
-                <label for="submit">
-                <input type="submit" name="submit" id="submit"></label><br>
-            </form> 
+        <div class="title"> Library </div>
+        <form class="user-input-container">
+            <div class="form-column">
+                <div class="input-data">
+                    <input required type="text" name="bookTitle" id="bookTitle" required><br>
+                    <div class="underline"></div>
+                    <label for="bookTitle">Book Title</label><br>
+                </div>
+                <div class="input-data">
+                    <input required type="text" name="bookAuthor" id="bookAuthor" required><br>
+                    <div class="underline"></div>
+                    <label for="bookAuthor">Book Author</label><br>
+                </div>
+                <div class="input-data">
+                    <input required type="text" name="bookPage" id="bookPage" min="0" step="1" required name="bookPage"><br>
+                    <div class="underline"></div>
+                    <label for="bookPage">Number of Page</label><br>
+                </div>
+                <div class="input-data">
+                    <label class="switch">
+                        <input type="checkbox" name="bookReadStatus" id="bookReadStatus" name="bookReadStatus">
+                        <span class="slider round"></span>
+                    <div class="underline"></div>
+                    </label><label for="bookReadStatus">Read Status</label><br>
+   
+                </div>
+                <div class="input-data">
+                    <input required type="text" name="bookPrice" id="bookPrice" min="0" name="bookPrice"><br>
+                    <div class="underline"></div>
+                    <label for="bookPrice">Price</label><br>
+                </div>
+                <div class="form-column submit-btn">
+                    <div class="inner"></div>
+                        <input type="submit" name="submit" id="submit" ></label><br>
+                    </div>
+                </div>
         </div>
-        <div class="book-container">
+        </form> 
+    
+        <div class="library-stats-container">
+            <p class="stats-text">Number of book in the library <p data-num-of-book>0</p></p>
+            <p class="stats-text">Number of book read in the library  <p data-num-of-book-read>0</p></p>
         </div>
-
+        <div class="book-container"></div>
     </div>
+    
 </body>
+
 </html>
