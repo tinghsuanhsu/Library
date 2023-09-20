@@ -6,9 +6,9 @@
 html {
     height: 100%;
 }
+
 body {
     display: flex;
-    min-height: 200vh;
     margin:0;
     padding:0;
     font-family: sans-serif;
@@ -23,26 +23,32 @@ body {
 .title {
     width: 100%;
     height: 2rem;
-    margin: 1rem;
-    text-align: center;
+    margin: 2rem 0 0 0;
+    text-align: left;
     font-size: 3rem;
     font-weight: 600;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     color: #fff;
-    padding: 1rem;
-    border-bottom: #9b9999 solid 0.02rem;
 }
 .book-container {
+    /* background-color: black; */
     position: absolute;
-    top: 15rem;
-    left: 20rem;
+    width: 50rem;
+    height: 32rem;
+    max-width: fit-content;
+    max-height: fit-content;
+    top: 7rem;
+    left: 25rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill);
+    grid-gap: 0.2rem;
+    grid-template-rows: repeat(auto-fit, minmax(min(100%/4, max(4rem, 100%/4)), 1fr));
+    grid-auto-flow: column;
+
 }
 .user-input-container {
     position: absolute;
-    top:2rem;
+    top:4rem;
 }
 
 .user-input-container form .form-column{
@@ -53,14 +59,14 @@ body {
 }
 
 .library-stats-container {
-    position: absolute;
-    left: 15rem;
+    position: relative;
     display: inline-flex;
     color: #fff;
     margin: 3rem 1rem 0 2rem;
     width: 150%;
     font-size: .75rem;
 }
+
 
 form .form-column .input-data{
     width: 100%;
@@ -103,7 +109,19 @@ form .form-column{
     border: none;
     color:#fff;
 }
-  
+
+.input-checkbox > label {
+    margin: 0;
+    bottom: 0.8rem;
+    font-size: 1rem;
+    margin: 0;
+    border: none;
+    color:#fff;
+    transition: all 0.3s ease;
+}
+.input-checkbox {
+    margin: 1rem;
+}
 .input-data .underline{
     position: absolute;
     bottom: 0;
@@ -123,6 +141,7 @@ form .form-column{
 .input-data input:focus ~ .underline:before,
 .input-data input:valid ~ .underline:before{
     transform: scale(1);
+    background: transparent;
 }
 
 /* .submit-btn .input-data{
@@ -189,10 +208,10 @@ form .form-column{
 }
 
 p {
-    margin: 0.3rem;
+    margin: 0.1rem;
 }
 
-[data-remove] {
+/* [data-remove] {
     border-width: 0;
     background-color: #edecec;
     border-radius: 1rem;
@@ -209,6 +228,34 @@ p {
     font-size: 0.7rem;    
     padding: .5rem;  
     width: 5rem;  
+} */
+
+[data-remove] {
+    /* display: block; */
+    position: relative;
+    color: #fff;
+    background-color: grey;
+    border-radius: 50%;
+    border: none;
+    width: 14%;
+    height: 14%;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+[data-remove]:hover {
+    /* display: block; */
+    position: relative;
+    color: #fff;
+    background-color: rgb(49, 49, 49);
+    border-radius: 50%;
+    border: none;
+    width: 14%;
+    height: 14%;
+    text-align: center;
+    cursor: pointer;
+
 }
 
 [data-read-status="Read"] {
