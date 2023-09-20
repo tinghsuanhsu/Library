@@ -3,14 +3,15 @@
 // -------------------
 // take users input [x]
 //    validate data type
-//    update read status 
+//    update read status [x] 
 // store new book objects into an array [x]
 // display book  [x]
 // add 1 book to existing library [x]
 // remove book [x]
-// change book status
-
-
+// change book status [x]
+// fix the bug of book counts when a book is removed when read
+// input validation
+// read status input toggle 
 
 let libraryArray = [];
 let bookId = 0;
@@ -21,7 +22,7 @@ const numOfBook = document.querySelector('[data-num-of-book]');
 const numOfBookRead = document.querySelector('[data-num-of-book-read]');
 
 class Book {
-  constructor(author, title, numOfPage, readStatus, price) {
+  constructor(title, author, numOfPage, readStatus, price) {
     this.author = author;
     this.title = title;
     this.numOfPage = numOfPage;
@@ -29,7 +30,6 @@ class Book {
     this.price = price;
   }
 }
-
 
 function createBookObjFromInput() {
   const title = document.getElementById('bookTitle').value;
@@ -69,8 +69,10 @@ function createBookElement(book) {
   setText(bookPrice, book, 'price');
 
   // remove button
-  removeBook.innerText = 'Remove';
+  // removeBook.innerText = 'Remove';
+  removeBook.innerHTML = '&times;';
   removeBook.classList.add('remove');
+  
 
   // add attributes to the book container
   bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookStatusToggle, bookPrice, removeBook)
@@ -86,8 +88,6 @@ function createReadStatusToggle() {
   let toggleInput = document.createElement('input');
   toggleInput.setAttribute('type', 'checkbox');
   toggleInput.setAttribute('class', 'status');
-
-
   // let toggleSpan = document.createElement('span');
   // toggleSpan.setAttribute('class', 'slider round');
   
@@ -121,6 +121,17 @@ function countBookRead() {
 // let newBookElement = createBookElement(book1, 1);
 // addBookToLibrary(newBookElement);
 
+function validateInput() {
+  
+  const readStatus = document.getElementById('bookReadStatus').checked == true ? 'Read': 'Not Read';
+  const price = document.getElementById('bookPrice').value;
+}
+
+// function validateBookPage() {
+//   const pageNumber = document.getElementById('bookPage').value;
+//   if (typeof(pageNumber))
+// }
+
 // add new book
 const subButton = document.querySelector('#submit')
 subButton.addEventListener('click', (e) => {
@@ -138,6 +149,7 @@ library.addEventListener('click', function(e) {
     let bookToRemove = e.target.dataset.remove;
       removeBookFromLibrary(bookToRemove); // data-book id
       libraryArray = libraryArray.filter(book => book != bookToRemove);
+      numOfBook.innerHTML = libraryArray.length;
     } else {
     return ;
   }
