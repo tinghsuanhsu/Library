@@ -107,19 +107,12 @@ function removeBookFromLibrary(bookId) {
 
 function updateReadStatus(checked) {
   return checked == true ? 'Read' : 'Not Read'
-  // const currentStatus = document.querySelector('[data-read-status]');
-  // currentStatus.innerText = checked == true ? 'Read' : 'Not Read';
-  // currentStatus.setAttribute('data-read-status', checked == true ? 'Read': 'Not Read');
 }
 
 function countBookRead() {
   const bookRead = document.querySelectorAll('[data-read-status="Read"');
   return bookRead.length;
 }
-// user "creating" books
-// const book1 = new Book('Peter Peterson', 'A book of Pete', '123', 'Not Read', '15');
-// let newBookElement = createBookElement(book1, 1);
-// addBookToLibrary(newBookElement);
 
 function validateInput() {
   
@@ -133,7 +126,7 @@ function validateInput() {
 // }
 
 // add new book
-const subButton = document.querySelector('#submit')
+const subButton = document.querySelector('#button-submit')
 subButton.addEventListener('click', (e) => {
   e.preventDefault();
   let newBook = createBookObjFromInput();
@@ -150,6 +143,7 @@ library.addEventListener('click', function(e) {
       removeBookFromLibrary(bookToRemove); // data-book id
       libraryArray = libraryArray.filter(book => book != bookToRemove);
       numOfBook.innerHTML = libraryArray.length;
+      numOfBookRead.innerText = countBookRead();
     } else {
     return ;
   }
