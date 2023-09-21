@@ -58,7 +58,7 @@ function createBookElement(book) {
   const bookAuthor = createElementAndSetAttribute('p', 'data-author', '');
   const bookPage = createElementAndSetAttribute('p', 'data-page', '');
   const bookReadStatus = createElementAndSetAttribute('p', 'data-read-status', book.readStatus);
-  const bookStatusToggle = createReadStatusToggle();
+  const bookStatusToggle = createReadStatusToggle(book);
   const bookPrice = createElementAndSetAttribute('p', 'data-price', '');
   const removeBook = createElementAndSetAttribute('button', 'data-remove', bookId);
 
@@ -81,13 +81,15 @@ function createBookElement(book) {
   return bookSpan
 }
 
-function createReadStatusToggle() {
+function createReadStatusToggle(book) {
   let toggleLabel = document.createElement('label');
   toggleLabel.setAttribute('class', 'switch');
 
   let toggleInput = document.createElement('input');
   toggleInput.setAttribute('type', 'checkbox');
   toggleInput.setAttribute('class', 'status');
+  toggleInput.checked = book.readStatus == "Read" ? true:false; 
+
   // let toggleSpan = document.createElement('span');
   // toggleSpan.setAttribute('class', 'slider round');
   
