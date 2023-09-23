@@ -1,5 +1,5 @@
 
-// features list
+// TODO
 // -------------------
 // take users input [x]
 //    validate data type
@@ -9,9 +9,10 @@
 // add 1 book to existing library [x]
 // remove book [x]
 // change book status [x]
-// fix the bug of book counts when a book is removed when read
+// fix the bug of book counts when a book is removed when read [x]
 // input validation
-// read status input toggle 
+// read status input toggle [x]
+// remove book layer div [x]
 
 let libraryArray = [];
 let bookId = 0;
@@ -57,44 +58,40 @@ function createBookElement(book) {
   const bookTitle = createElementAndSetAttribute('p', 'data-title', '');
   const bookAuthor = createElementAndSetAttribute('p', 'data-author', '');
   const bookPage = createElementAndSetAttribute('p', 'data-page', '');
-  const bookReadStatus = createElementAndSetAttribute('p', 'data-read-status', book.readStatus);
   const bookStatusToggle = createReadStatusToggle(book);
   const bookPrice = createElementAndSetAttribute('p', 'data-price', '');
   const removeBook = createElementAndSetAttribute('button', 'data-remove', bookId);
 
   setText(bookAuthor, book, 'author');
   setText(bookPage, book, 'numOfPage');
-  setText(bookReadStatus, book, 'readStatus');
   setText(bookTitle, book, 'title');
   setText(bookPrice, book, 'price');
 
-  // remove button
-  // removeBook.innerText = 'Remove';
   removeBook.innerHTML = '&times;';
-  removeBook.classList.add('remove');
-  
+  removeBook.classList.add('remove'); 
 
   // add attributes to the book container
-  bookSpan.append(bookTitle, bookAuthor, bookPage, bookReadStatus, bookStatusToggle, bookPrice, removeBook)
+  bookSpan.append(bookTitle, bookAuthor, bookPage, bookStatusToggle, bookPrice, removeBook)
   
   bookId++ // incremental bookID
   return bookSpan
 }
 
 function createReadStatusToggle(book) {
-  let toggleLabel = document.createElement('label');
-  toggleLabel.setAttribute('class', 'switch');
+  let toggleContainer = document.createElement('div');
+  toggleContainer.setAttribute('class', 'book-toggle');
 
   let toggleInput = document.createElement('input');
   toggleInput.setAttribute('type', 'checkbox');
-  toggleInput.setAttribute('class', 'status');
+  toggleInput.setAttribute('class', 'book-read-status');
   toggleInput.checked = book.readStatus == "Read" ? true:false; 
+  toggleInput.setAttribute('data-read-status', book.readStatus)
 
-  // let toggleSpan = document.createElement('span');
-  // toggleSpan.setAttribute('class', 'slider round');
-  
-  toggleLabel.append(toggleInput);
-  return toggleLabel
+  let toggleKnob = document.createElement('div');
+  toggleKnob.setAttribute('class', 'book-knobs');
+
+  toggleContainer.append(toggleInput, toggleKnob);
+  return toggleContainer
 }
 
 function addBookToLibrary(book) {
@@ -152,13 +149,10 @@ library.addEventListener('click', function(e) {
 });
 
 library.addEventListener('change', function(e) {
-  if (e.target.matches('.status')) {
-      let pTag = e.target.parentElement.previousElementSibling;
-      let check = e.target.checked;
-      pTag.innerText = updateReadStatus(check); 
-      pTag.dataset.readStatus = updateReadStatus(check);
-      numOfBookRead.innerText = countBookRead();
-
+  if (e.target.matches('.book-read-status')) {
+      let check = e.target.checked; // get the check 
+      e.target.dataset.readStatus = updateReadStatus(check); // translate check to Read/Not Read
+      numOfBookRead.innerText = countBookRead(); // count the Read books
     } else {
     return ;
   }
