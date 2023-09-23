@@ -144,21 +144,9 @@ form .form-column{
     transform: scale(1);
     background: transparent;
 }
-
-/* .submit-btn .input-data{
-    overflow: hidden;
-    height: 4rem!important;
-    width: 25%!important;
-}
- */
-/* .submit-btn .input-data:hover .inner{
-    left: 0;
-} */
 .form-column .submit-btn {
     height: 5rem;
 }
-
-
 [data-book] {
     display: flex;
     justify-content: center;
@@ -172,46 +160,24 @@ form .form-column{
     border-radius: 2rem;
     flex-direction: column;
 }
-
 [data-author] {
     font-size: 1rem;
 }
 
 [data-title] {
     font-size: 1rem;
-    color: red;
+    color: rgb(150, 150, 150);
+    font-weight: bold;
 }
 
 [data-book] > p {
     padding: 0;
     font-size: 0.7rem;
 }
-
 p {
-    margin: 0.1rem;
+    margin: 0.3rem;
 }
-
-/* [data-remove] {
-    border-width: 0;
-    background-color: #edecec;
-    border-radius: 1rem;
-    font-size: 0.7rem;    
-    padding: .5rem;  
-    width: 5rem;
-}
-
-[data-remove]:hover {
-    border-width: 0;
-    background-color: #096d74;
-    color: #fff;
-    border-radius: 1rem;
-    font-size: 0.7rem;    
-    padding: .5rem;  
-    width: 5rem;  
-} */
-
 [data-remove] {
-    /* display: block; */
     position: relative;
     color: #fff;
     background-color: grey;
@@ -221,11 +187,10 @@ p {
     height: 14%;
     text-align: center;
     cursor: pointer;
-
+    margin-top: 0.5rem;
 }
 
 [data-remove]:hover {
-    /* display: block; */
     position: relative;
     color: #fff;
     background-color: rgb(49, 49, 49);
@@ -235,16 +200,13 @@ p {
     height: 14%;
     text-align: center;
     cursor: pointer;
+    margin-top: 0.5rem;
 
 }
-
-[data-read-status="Read"] {
-    color: aqua;
+[data-price] {
+    margin:0;
 }
 
-[data-read-status="Not Read"] {
-    color: grey;
-}
 
 .submit-btn > input{
     background: rgb(250,250,250);
@@ -274,35 +236,35 @@ p {
     position: relative;
     border-radius: 1rem;
 }
-  .knobs,
-  .layer {
+.knobs,
+.layer {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-  }
+}
   
-  .button {
+.button {
     position: relative;
-    top: 50%;
+    /* top: 50%; */
     width: 100%;
     height: 2.3rem;
     margin: 3rem 1rem 0 0;
     overflow: hidden;
     text-align: center;
-  }
+}
   
-  .button,
-  .button .layer {
+.button,
+.button .layer {
     border-radius: 100px;
-  }
+}
   
-  .button {
+.button {
     border-radius: 2px;
-  }
+}
   
-  .checkbox {
+.checkbox {
     position: relative;
     width: 100%;
     height: 100%;
@@ -311,21 +273,20 @@ p {
     opacity: 0;
     cursor: pointer;
     z-index: 3;
-  }
+}
   
-  .knobs {
+.knobs {
     z-index: 2;
-  }
+}
   
-  .layer {
+.layer {
     width: 100%;
     background-color: #ebf7fc;
     transition: 0.3s ease all;
     z-index: 1;
-  }
-  
-  /* Button 1 */
-  #button-book-status .knobs:before {
+}
+
+#button-book-status .knobs:before {
     content: "NOT READ";
     position: absolute;
     top: 4px;
@@ -337,24 +298,94 @@ p {
     font-weight: bold;
     text-align: center;
     line-height: 1;
-    padding: 9px 4px;
+    padding: 0.5rem;
     background-color: #03a9f4;
     border-radius: 2rem;
     transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
-  }
+}
   
-  #button-book-status .checkbox:checked + .knobs:before {
+#button-book-status .checkbox:checked + .knobs:before {
     content: "READ";
-    left: 5.5rem;
+    left: 5.25rem;
     background-color: #f1960d;
-  }
+}
   
-  #button-book-status .checkbox:checked ~ .layer {
+#button-book-status .checkbox:checked ~ .layer {
     background-color: #fcf5eb;
-  }
+}
   
-  #button-book-status .knobs,
-  #button-book-status .knobs:before,
-  #button-book-status .layer {
+#button-book-status .knobs,
+#button-book-status .knobs:before,
+#button-book-status .layer {
     transition: 0.3s ease all;
-  }
+}
+
+/* book toggle */
+.book-knobs,
+.book-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+  
+.book-toggle {
+    position: relative;
+    width: 10rem;
+    height: 2rem;
+    /* left: .65rem; */
+    overflow: hidden;
+    text-align: center;
+    /* border-radius: 0.5rem; */
+    align-items: center;
+    /* padding-bottom: 2rem; */
+    font-size: 0.5rem;
+}
+.book-layer {
+    border-radius: 10rem;
+}
+
+.book-read-status {
+    position: relative;
+    width: 75%;
+    height: 75%;
+    /* left: 0.5rem; */
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+  
+/* .book-knobs {
+    z-index: 2;
+} */
+  
+.book-knobs:before {
+    content: "NOT READ";
+    position: absolute;
+    left: 2rem;
+    width: 50%;
+    color: #fff;
+    font-size: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: .5rem;
+    background-color: #03a9f4;
+    border-radius: 2rem;
+    transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+  
+.book-read-status:checked + .book-knobs:before {
+    content: "READ";
+    background-color: #f1960d;
+}
+  
+.book-knobs,
+.book-knobs:before,
+.book-ayer {
+    transition: 0.3s ease all;
+    text-align: center;
+
+}
