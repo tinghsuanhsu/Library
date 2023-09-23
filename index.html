@@ -13,27 +13,25 @@
         <form class="user-input-container">
             <div class="form-column">
                 <div class="input-data">
-                    <input required type="text" name="bookTitle" id="bookTitle" required><br>
+                    <input required type="text" name="bookTitle" id="bookTitle" ><br>
                     <div class="underline"></div>
                     <label for="bookTitle">Book Title</label><br>
                 </div>
                 <div class="input-data">
-                    <input required type="text" name="bookAuthor" id="bookAuthor" required><br>
+                    <input required type="text" name="bookAuthor" id="bookAuthor" ><br>
                     <div class="underline"></div>
                     <label for="bookAuthor">Book Author</label><br>
                 </div>
                 <div class="input-data">
-                    <input required type="text" name="bookPage" id="bookPage" min="0" step="1" required name="bookPage"><br>
+                    <input required type="text" name="bookPage" id="bookPage" min="0" step="1" name="bookPage"><br>
                     <div class="underline"></div>
                     <label for="bookPage">Number of Page</label><br>
                 </div>
-                <div class="input-data">
-                    <label class="switch">
-                        <input type="checkbox" name="bookReadStatus" id="bookReadStatus" name="bookReadStatus">
-                        <span class="slider round"></span>
-                    <div class="underline"></div>
+                <div class="button" id="button-book-status">
+                    <input type="checkbox" class="checkbox" name="bookReadStatus" id="bookReadStatus" name="bookReadStatus" />
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
                     </label><label for="bookReadStatus">Read Status</label><br>
-   
                 </div>
                 <div class="input-data">
                     <input required type="text" name="bookPrice" id="bookPrice" min="0" name="bookPrice"><br>
@@ -42,7 +40,7 @@
                 </div>
                 <div class="form-column submit-btn">
                     <div class="inner"></div>
-                        <input type="submit" name="submit" id="submit" ></label><br>
+                        <input type="submit" name="submit" id="button-submit" ></label><br>
                     </div>
                 </div>
         </div>
