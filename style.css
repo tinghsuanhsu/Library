@@ -71,20 +71,18 @@ body {
     justify-content: space-around;
 }
 
-
-form .form-column .input-data{
-    width: 100%;
-    height: 4rem;
-    margin: 1rem 0 0 0;
-    position: relative;
-  }
 form .form-column{
     width: 100%;
     height: 20rem;
     margin: 2rem 0;
     position: relative;
 }
-
+.input-data{
+    width: 100%;
+    height: 3rem;
+    margin: 1rem 0 0 0;
+    position: relative;
+  }
 .input-data input{
     display: block;
     width: 100%;
@@ -92,19 +90,22 @@ form .form-column{
     border: none;
     font-size: 1rem;
     border-bottom: 0.2rem solid rgba(250, 250, 250, 0.395);
-    margin: 2rem 0;
+    margin: 3rem 0 0 0;
     background-color: transparent;
     color: #fff;
 }
 .input-data input:focus ~ label,
 .input-data input:valid ~ label{
+    display: block;
     transform: translateY(-2rem);
     font-size: 0.7rem;
     color: #3498db;
     border: none;
 }
 .input-data label{
+    display: block;
     position: absolute;
+    height: 1rem;
     pointer-events: none;
     bottom: 0.8rem;
     font-size: 1rem;
@@ -216,6 +217,14 @@ p {
     font-weight: bold;
     color: #f1960d;    
 }
+small {
+    font-size: 0.75rem;
+    color: rgb(245, 25, 9);
+}
+.error {
+    background-color: rgb(232, 23, 23);
+}
+
 .submit-btn > input{
     background: rgb(250,250,250);
     height: 8rem;
