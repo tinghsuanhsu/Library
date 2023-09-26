@@ -10,9 +10,11 @@
 // remove book [x]
 // change book status [x]
 // fix the bug of book counts when a book is removed when read [x]
-// input validation
+// input validation 
+//    only submit the form when all input are valid 
 // read status input toggle [x]
 // remove book layer div [x]
+// clear the form input upon submission [x]
 
 let libraryArray = [];
 let bookId = 0;
@@ -247,6 +249,7 @@ subButton.addEventListener('click', (e) => {
   addBookToLibrary(newBookElement);
   numOfBook.innerHTML = libraryArray.length;
   numOfBookRead.innerText = countBookRead();
+  form.reset();
 });
 
 // remove the book
@@ -288,4 +291,5 @@ form.addEventListener('input', function(e) {
       checkPrice();
       break;
     }  
+  
 })
