@@ -21,6 +21,10 @@ let isChecked = false;
 const library = document.querySelector('.book-container');
 const numOfBook = document.querySelector('[data-num-of-book]');
 const numOfBookRead = document.querySelector('[data-num-of-book-read]');
+const form = document.querySelector('form');
+const bookTitleElem = document.querySelector('#bookTitle');
+const bookPriceElem = document.querySelector('#bookPrice');
+
 
 class Book {
   constructor(title, author, numOfPage, readStatus, price) {
@@ -114,16 +118,40 @@ function countBookRead() {
 }
 
 function validateInput() {
-  
   const readStatus = document.getElementById('bookReadStatus').checked == true ? 'Read': 'Not Read';
   const price = document.getElementById('bookPrice').value;
 }
 
-// function validateBookPage() {
-//   const pageNumber = document.getElementById('bookPage').value;
-//   if (typeof(pageNumber))
-// }
+// is required
+// is valid 
+// -- title and author -> text
+// -- page number and price --> number 
+// check title
+// check author
+// check page number
+// check price
+function isRequied(value) {
+  return value === '' ? false:true;
+}
 
+function isTitleValid(value) {
+  const re = /^\S*\S$/;
+  return re.test(value)
+}
+function isAuthorValid(value) {
+  const re = /^\S*\S$/;
+  return re.test(value)
+}
+
+function isPageNumberValid(value) {
+  const re = /[0-9]+/;
+  return re.test(value)
+}
+
+function isPriceValid(value){
+  const re = /^\S[0-9]+.?[0-9]{0,2}$/;
+  return re.test(value)
+}
 // add new book
 const subButton = document.querySelector('#button-submit')
 subButton.addEventListener('click', (e) => {
@@ -157,3 +185,17 @@ library.addEventListener('change', function(e) {
     return ;
   }
 }); 
+
+form.addEventListener('input', function(e) {
+  inputData = e.target.parentElement;
+  const message = inputData.querySelector('small');
+  switch (e.target.id) {
+    case 'bookTitle':
+      console.log(bookTitleElem.value)
+      console.log(isTitleValid(bookTitleElem.value))
+    case 'bookPrice':
+      console.log(bookPriceElem.value)
+      console.log(isPriceValid(bookPriceElem.value))
+
+    }  
+})
