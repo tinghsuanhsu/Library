@@ -24,6 +24,9 @@ const numOfBookRead = document.querySelector('[data-num-of-book-read]');
 const form = document.querySelector('form');
 const bookTitleElem = document.querySelector('#bookTitle');
 const bookPriceElem = document.querySelector('#bookPrice');
+const bookAuthorElem = document.querySelector('#bookAuthor');
+const bookPageElem = document.querySelector('#bookPage');
+
 
 
 class Book {
@@ -111,12 +114,10 @@ function removeBookFromLibrary(bookId) {
 function updateReadStatus(checked) {
   return checked == true ? 'Read' : 'Not Read'
 }
-
 function countBookRead() {
   const bookRead = document.querySelectorAll('[data-read-status="Read"');
   return bookRead.length;
 }
-
 function validateInput() {
   const readStatus = document.getElementById('bookReadStatus').checked == true ? 'Read': 'Not Read';
   const price = document.getElementById('bookPrice').value;
@@ -146,12 +147,12 @@ function isAuthorValid(value) {
 }
 
 function isPageNumberValid(value) {
-  const re = /[0-9]+/;
+  const re = /^[1-9]+[0-9]*$/; // only allow whole positive number
   return re.test(value)
 }
 
 function isPriceValid(value){
-  const re = /(?<!\d)(?<!\d\.)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?(?!\.?\d)/;
+  const re = /(^[1-9]{1,9}\.?\d{0,2}$)|(^0{1}\.+\d{0,2})$/; // start with 0 or not start with 0
   return re.test(value)
 }
 
@@ -159,7 +160,7 @@ function checkTitle() {
   let valid = false;
   const title = bookTitleElem.value;
   if (!isRequired(title)){
-    showError(bookTitleElem, 'Please enter a valid book title')
+    showError(bookTitleElem, 'Book title is required')
   } else if (!isTitleValid(title)) {
     showError(bookTitleElem, 'Please enter a valid book title')
   } else {
@@ -168,6 +169,46 @@ function checkTitle() {
   }
   return valid
 }
+function checkAuthor() {
+  let valid = false;
+  const author = bookAuthorElem.value;
+  if (!isRequired(author)){
+    showError(bookAuthorElem, 'Author is required')
+  } else if (!isAuthorValid(author)) {
+    showError(bookAuthorElem, 'Please enter a valid author name.')
+  } else {
+    showSuccess(bookAuthorElem)
+    valid = true
+  }
+  return valid
+}
+function checkPage() {
+  let valid = false;
+  const page = bookPageElem.value;
+  if (!isRequired(page)){
+    showError(bookPageElem, 'Page number is required')
+  } else if (!isPageNumberValid(page)) {
+    showError(bookPageElem, 'Please enter a valid page number.')
+  } else {
+    showSuccess(bookPageElem)
+    valid = true
+  }
+  return valid
+}
+function checkPrice() {
+  let valid = false;
+  const price = bookPriceElem.value;
+  if (!isRequired(price)){
+    showError(bookPriceElem, 'Price is required')
+  } else if (!isPriceValid(price)) {
+    showError(bookPriceElem, 'Please enter a valid price.')
+  } else {
+    showSuccess(bookPriceElem)
+    valid = true
+  }
+  return valid
+}
+
 function showError(input, message) {
   const inputData = input.parentElement;
   const errorField = inputData.querySelector('small');
@@ -235,9 +276,16 @@ form.addEventListener('input', function(e) {
   const inputField = e.target.id
   switch (inputField) {
     case 'bookTitle':
-      console.log()
       checkTitle();
-      
-
+      break;
+    case 'bookAuthor':
+      checkAuthor();
+      break;
+    case 'bookPage':
+      checkPage();
+      break;
+    case 'bookPrice':
+      checkPrice();
+      break;
     }  
 })
