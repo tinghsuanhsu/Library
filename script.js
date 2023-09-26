@@ -130,12 +130,14 @@ function validateInput() {
 // check author
 // check page number
 // check price
-function isRequied(value) {
+// error message
+// ok message
+function isRequired(value) {
   return value === '' ? false:true;
 }
 
 function isTitleValid(value) {
-  const re = /^\S*\S$/;
+  const re = /^[^-\s][a-zA-Z0-9_\.\s-]+$/;
   return re.test(value)
 }
 function isAuthorValid(value) {
@@ -149,8 +151,51 @@ function isPageNumberValid(value) {
 }
 
 function isPriceValid(value){
-  const re = /^\S[0-9]+.?[0-9]{0,2}$/;
+  const re = /(?<!\d)(?<!\d\.)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{1,2})?(?!\.?\d)/;
   return re.test(value)
+}
+
+function checkTitle() {
+  let valid = false;
+  const title = bookTitleElem.value;
+  if (!isRequired(title)){
+    showError(bookTitleElem, 'Please enter a valid book title')
+  } else if (!isTitleValid(title)) {
+    showError(bookTitleElem, 'Please enter a valid book title')
+  } else {
+    showSuccess(bookTitleElem)
+    valid = true
+  }
+  return valid
+}
+function showError(input, message) {
+  const inputData = input.parentElement;
+  const errorField = inputData.querySelector('small');
+  errorField.textContent = message
+
+  input.classList.remove('success');
+  input.classList.add('error');
+
+}
+function showSuccess(input) {
+  const inputData = input.parentElement;
+  const errorField = inputData.querySelector('small');
+  errorField.textContent = ''
+
+  input.classList.remove('error');
+  input.classList.add('success');
+
+}
+
+function checkAuthor(author) {
+  let valid = false;
+  if (!isRequired(author)){
+    // error message
+  } else if (!isAuthorValid(author)) {
+    // error message
+  } else {
+    // no message
+  }
 }
 // add new book
 const subButton = document.querySelector('#button-submit')
@@ -187,15 +232,12 @@ library.addEventListener('change', function(e) {
 }); 
 
 form.addEventListener('input', function(e) {
-  inputData = e.target.parentElement;
-  const message = inputData.querySelector('small');
-  switch (e.target.id) {
+  const inputField = e.target.id
+  switch (inputField) {
     case 'bookTitle':
-      console.log(bookTitleElem.value)
-      console.log(isTitleValid(bookTitleElem.value))
-    case 'bookPrice':
-      console.log(bookPriceElem.value)
-      console.log(isPriceValid(bookPriceElem.value))
+      console.log()
+      checkTitle();
+      
 
     }  
 })
