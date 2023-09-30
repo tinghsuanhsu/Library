@@ -140,7 +140,7 @@ function isRequired(value) {
 }
 
 function isTitleValid(value) {
-  const re = /^[^-\s][a-zA-Z0-9_\.\s-]+$/;
+  const re = /^[a-zA-Z0-9]{1}[a-zA-Z0-9_\.\s-]*$/;
   return re.test(value)
 }
 function isAuthorValid(value) {
@@ -210,7 +210,9 @@ function checkPrice() {
   }
   return valid
 }
-
+function isAllValid() {
+  return checkTitle() & checkAuthor() & checkPage() & checkPrice() 
+}
 function showError(input, message) {
   const inputData = input.parentElement;
   const errorField = inputData.querySelector('small');
@@ -218,7 +220,6 @@ function showError(input, message) {
 
   input.classList.remove('success');
   input.classList.add('error');
-
 }
 function showSuccess(input) {
   const inputData = input.parentElement;
@@ -227,29 +228,20 @@ function showSuccess(input) {
 
   input.classList.remove('error');
   input.classList.add('success');
-
-}
-
-function checkAuthor(author) {
-  let valid = false;
-  if (!isRequired(author)){
-    // error message
-  } else if (!isAuthorValid(author)) {
-    // error message
-  } else {
-    // no message
-  }
 }
 // add new book
 const subButton = document.querySelector('#button-submit')
 subButton.addEventListener('click', (e) => {
   e.preventDefault();
-  let newBook = createBookObjFromInput();
-  newBookElement = createBookElement(newBook, bookId);
-  addBookToLibrary(newBookElement);
-  numOfBook.innerHTML = libraryArray.length;
-  numOfBookRead.innerText = countBookRead();
-  form.reset();
+
+  if (isAllValid()) {
+    let newBook = createBookObjFromInput();
+    newBookElement = createBookElement(newBook, bookId);
+    addBookToLibrary(newBookElement);
+    numOfBook.innerHTML = libraryArray.length;
+    numOfBookRead.innerText = countBookRead();
+    form.reset();
+  } 
 });
 
 // remove the book
